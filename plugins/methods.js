@@ -2,8 +2,9 @@
 
 export default (context, inject) => {
   inject("formatDate", (date) => {
+    const cnDate = date.replace(/th\,/g, ",");
     const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(date).toLocaleDateString("zh-cn", options);
+    return new Date(cnDate).toLocaleDateString("zh-cn", options);
   })
 }
 
