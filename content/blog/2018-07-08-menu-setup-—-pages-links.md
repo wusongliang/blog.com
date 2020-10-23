@@ -1,6 +1,6 @@
 ---
   title: Menu Setup — Pages & Links
-  date: Sunday July 8th, 2018
+  date: 2018-07-07T03:00:50-07:00
   thumbnail: /images/uploads/menu-setup.jpg
   category: Setup
 ---

@@ -1,6 +1,6 @@
 ---
   title: Lorem Ipsum
-  date: Tuesday June 19th, 2018
+  date: 2018-07-07T03:00:50-07:00
   thumbnail: /images/uploads/img_2148.jpg
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida neque convallis a cras semper auctor neque. Mauris commodo quis imperdiet massa tincidunt. Sollicitudin tempor id eu nisl nunc mi. Fringilla urna porttitor rhoncus dolor purus non enim praesent elementum. At urna condimentum mattis pellentesque id nibh tortor id aliquet. Quis enim lobortis scelerisque fermentum dui faucibus in ornare. Mauris commodo quis imperdiet massa tincidunt nunc. Venenatis cras sed felis eget velit. Amet aliquam id diam maecenas ultricies mi.

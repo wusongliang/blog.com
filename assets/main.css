@@ -1,0 +1,14 @@
+
+@media screen and (max-width: 599px) {
+  :root {
+    font-size: 14px !important;
+  }
+}
+
+.hide-text-decoration {
+  text-decoration: none;
+}
+
+code {
+  background-color: transparent !important;
+}

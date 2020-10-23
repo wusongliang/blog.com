@@ -1,6 +1,6 @@
 ---
 title: Welcome to Bael, a free Nuxt / NetlifyCMS powered blog template
-date: Monday October 19th, 2020
+date: 2019-07-07T03:00:50-07:00
 thumbnail: /images/uploads/bael-big.jpg
 ---
 ![error](/images/uploads/bug_fixing_monochromatic.png "error")

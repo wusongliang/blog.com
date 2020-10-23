@@ -1,7 +1,19 @@
 <template>
   <v-card class="blog mx-auto transparent py-6" max-width="760" elevation="0">
+    <v-text-field
+      v-model.trim="q"
+      id="search"
+      label="Search..."
+      single
+      dense
+      outlined
+      :append-icon="$vuetify.icons.values.mdiMagnify"
+      @keyup.enter="search()"
+      @click:append="search()"
+    ></v-text-field>
+
     <v-card
-      v-for="blog in posts"
+      v-for="blog in blogs"
       :key="blog.slug"
       class="d-flex flex-no-wrap mb-4"
       outlined
@@ -38,7 +50,7 @@
       </div>
     </v-card>
 
-    <div v-if="!posts.length" class="text-center mb-5 mt-3 grey--text text--darken-1">
+    <div v-if="!blogs.length" class="text-center mb-5 mt-3 grey--text text--darken-1">
       没有相关文章
     </div>
 
@@ -52,64 +64,68 @@
 
 <script>
 export default {
-  async asyncData({ $content, params, store, error }) {
+  watchQuery: true,
+
+  async asyncData ({ $content, route }) {
+    const q = route.query.q;
+
     const content = await $content("page/blog").fetch();
 
-    const category = await $content("category", params.slug)
-      .fetch()
-      .catch((err) => {
-        error({ statusCode: 404, message: "Page not found" });
-      });
+    let query = $content("blog", { deep: true })
+      .sortBy("date", "desc")
+      .only(["title", "path", "date", "thumbnail"]);
 
-    const blogsCount = await $content("blog")
-      .sortBy("createdAt", "desc")
-      .where({ category: category.title })
-      .fetch();
+    if (q) {
+      //query = query.search(q);
+      query = query.search('title', q);
+    }
 
     const limit = Number(content.limit);
-
-    const posts = await $content("blog")
-      .sortBy("createdAt", "desc")
-      .only(["title", "path", "date", "thumbnail"])
-      .where({ category: category.title })
-      .skip(1)
-      .limit(limit)
-      .fetch();
+    const blogsCount = await query.fetch();
+    const blogs = await query.skip(0).limit(limit).fetch();
 
     return {
-      category,
-      posts,
+      q,
       limit,
+      blogs,
+      content,
       page: 1,
       length: Math.ceil(blogsCount.length / limit)
-    };
+    }
   },
 
   watch: {
-    async page() {
-      const blogsCount = await this.$content("blog")
-      .sortBy("createdAt", "desc")
-      .where({ category: this.category.title })
-      .fetch();
+    page(val) {
+      this.getBlogs(val);
+    }
+  },
 
-     this.posts = await this.$content("blog")
-      .sortBy("createdAt", "desc")
-      .only(["title", "path", "date", "thumbnail"])
-      .where({ category: this.category.title })
-      .skip((this.page - 1) * this.limit)
-      .limit(this.limit)
-      .fetch();
+  methods: {
+    search() {
+      this.getBlogs(1);
+    },
+    async getBlogs(page) {
+      let query = this.$content("blog", { deep: true })
+        .sortBy("date", "desc")
+        .only(["title", "path", "date", "thumbnail"]);
 
+      if (this.q) query = query.search('title', this.q);
+
+      const blogsCount = await query.fetch();
+      this.blogs = await query.skip((page - 1) * this.limit).limit(this.limit).fetch();
       this.length = Math.ceil(blogsCount.length / this.limit);
     }
   },
 
-  head() {
+  head () {
     return {
-      title: this.category.title + " | " + this.$store.state.info.sitename,
-    };
+      title: this.content.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.content.description }
+      ]
+    }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

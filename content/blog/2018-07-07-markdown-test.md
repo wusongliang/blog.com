@@ -1,6 +1,6 @@
 ---
   title: Markdown Test
-  date: Saturday July 7th, 2018
+  date: 2018-07-07T03:00:50-07:00
 ---
  # An h1 header
 

@@ -1,6 +1,6 @@
 ---
   title: Nicolas Jaar - Selected Network Sets
-  date: Tuesday July 17th, 2018
+  date: 2018-07-07T03:00:50-07:00
   thumbnail: /images/uploads/define.png
   category: Music
 ---

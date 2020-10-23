@@ -1,24 +1,23 @@
 <template>
-    <component :is="tag">
-        <slot/>
-    </component>
+  <component :is="tag">
+    <slot />
+  </component>
 </template>
 
 <script>
-import smoothReflow from 'vue-smooth-reflow'
+import smoothReflow from "vue-smooth-reflow";
 export default {
-    name: 'SmoothReflow',
-    mixins: [smoothReflow],
-    props: {
-        tag: {
-            type: String,
-            default: 'div'
-        },
-        options: Object,
+  name: "SmoothReflow",
+  mixins: [smoothReflow],
+  props: {
+    tag: {
+      type: String,
+      default: "div",
     },
-     mounted () {
-         this.$smoothReflow(this.options)
-
-    },
-}
+    options: Object,
+  },
+  mounted() {
+    this.$smoothReflow(this.options);
+  },
+};
 </script>

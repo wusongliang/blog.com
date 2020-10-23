@@ -24,18 +24,24 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600;700;800&display=swap' }
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap' }
     ]
   },
-  css: ["@/assets/grid.css", "@/assets/content.scss", "bf-solid/dist/solid.latest.css"],
+  css: ["@/assets/main.css", "@/assets/content.scss"],
   // icon: {
   //   iconSrc: `${siteInfo.siteicon}`
   //  },
   /*
   ** Customize the progress bar color
   */
-  loading: { color: '#3B8070' },
-  modules: ['@nuxt/content', '@nuxtjs/pwa', '@nuxtjs/axios'],
+
+  loading: { color: process.env.PRIMARY_COLOR || "#26a69a" },
+  buildModules: ['@nuxtjs/vuetify'],
+  modules: ['@nuxt/content', '@nuxtjs/pwa', '@nuxtjs/axios', 'nuxt-polyfill'],
+  vuetify: {
+    defaultAssets: false,
+    optionsPath: "./vuetify.options.js"
+  },
   content: {
     fullTextSearchFields: ['title', 'description', 'category']
   },
@@ -60,28 +66,19 @@ module.exports = {
       }
     ]
   },
-
-  /*
-  ** Route config for pre-rendering
-  */
-  router: {
-    scrollBehavior: function (to, from, savedPosition) {
-      return { x: 0, y: 0 }
-    },
-    middleware: ['title']
+  polyfill: {
+    features: [
+      {
+        require: "intersection-observer",
+        detect: () => "IntersectionObserver" in window
+      }
+    ]
   },
+
   plugins: [
-    {
-      src: "~/plugins/browser",
-      mode: 'client'
-    }, {
-      src: "~/plugins/moment",
-      mode: 'client'
-    }, {
-      src: "~/plugins/lazyload",
-      mode: 'client'
-    }
+    "~/plugins/methods"
   ],
+
   /*
   ** Build configuration
   */
@@ -99,10 +96,6 @@ module.exports = {
         _get: 'lodash/get',
       })
     ],
-    /** Uncomment this if you need to use the full Vue build */
-    // extend(config) {
-    //     config.resolve.alias['vue'] = 'vue/dist/vue.common'
-    // }
   },
 }
 

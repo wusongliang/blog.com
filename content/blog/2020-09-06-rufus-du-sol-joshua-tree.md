@@ -1,6 +1,6 @@
 ---
 title: Rufus Du Sol Live in Joshua Tree
-date: Sunday September 6th, 2020
+date: 2019-07-07T03:00:50-07:00
 thumbnail: /images/uploads/desert.jpg
 category: Music
 ---

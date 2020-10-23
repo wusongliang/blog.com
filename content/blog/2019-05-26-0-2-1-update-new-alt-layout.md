@@ -1,6 +1,6 @@
 ---
   title: 0.2.1 Update - New Alt Layout
-  date: Sunday May 26th, 2019
+  date: 2019-07-07T03:00:50-07:00
   thumbnail: /images/uploads/jake-peterson-1530918-unsplash.jpg
   category: Setup
 ---

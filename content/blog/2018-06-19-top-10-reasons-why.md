@@ -1,6 +1,6 @@
 ---
 title: Top 10 Reasons to Use This Theme
-date: Tuesday June 19th, 2018
+date: 2018-07-07T03:00:50-07:00
 ---
 
 1. **It's fast** — Bael runs as a static generated, single page application. After the first page loads, pages after that don't require a full page load.

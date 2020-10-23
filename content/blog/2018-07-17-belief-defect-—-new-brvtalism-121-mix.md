@@ -1,6 +1,6 @@
 ---
   title: Belief Defect — New Brvtalism 121 Mix
-  date: Sunday July 15th, 2018
+  date: 2018-07-07T03:00:50-07:00
   thumbnail: /images/uploads/belief.jpg
   category: Music
 ---

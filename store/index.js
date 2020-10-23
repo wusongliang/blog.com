@@ -1,20 +1,16 @@
-
-
 export const state = () => {
   return {
     menuIsActive: false,
     menuInitial: true,
     info: {},
-    current: {},
     categories: [],
     pagination: false,
     totalPages: null,
-    settings: {},
-
+    settings: {}
   }
 }
-export const actions = {
 
+export const actions = {
   async fetchInfo({ commit }, $content) {
     try {
       const info = await $content("setup", "info").fetch();
@@ -29,11 +25,6 @@ export const actions = {
       commit('SET_ERROR', error);
     }
   }
-
-
-
-
-
 }
 
 export const mutations = {
@@ -46,9 +37,6 @@ export const mutations = {
   },
   SET_CONNECT(state, data) {
     state.connect = data
-  },
-  SET_CURRENT(state, data) {
-    state.current = data
   },
   SET_CATEGORIES(state, data) {
     state.categories = data

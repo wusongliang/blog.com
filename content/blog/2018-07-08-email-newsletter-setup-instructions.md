@@ -1,6 +1,6 @@
 ---
   title: Email Newsletter Setup Instructions
-  date: Sunday July 8th, 2018
+  date: 2018-07-07T03:00:50-07:00
   thumbnail: /images/uploads/email.png
   category: Setup
 ---
