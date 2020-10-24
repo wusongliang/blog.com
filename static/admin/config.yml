@@ -28,7 +28,9 @@ collections:
     fields: # The fields for each document, usually in front matter
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Limit", name: "limit", widget: "number", required: false}
       - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
+      - {label: Description, name: description, widget: string, required: false}
       - {label: "Body", name: "body", widget: "markdown"}
   - label: "Setup"
     name: "setup"
@@ -73,4 +75,5 @@ collections:
       - {label: Title, name: title, widget: string}
       - {label: Position, name: position, widget: string}
       - {label: Description, name: description, widget: string, required: false}
+      - {label: "Featured Image", name: "thumbnail", widget: "image", required: false}
  
