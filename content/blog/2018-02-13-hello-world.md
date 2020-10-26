@@ -7,7 +7,7 @@ thumbnail: /images/uploads/fireshot-capture-018-a-simple-example-pannellum-panne
 
 **使用cdn引入**
 
-第一种
+第一种 
 
 ```html
 <!DOCTYPE HTML>
@@ -31,8 +31,6 @@ thumbnail: /images/uploads/fireshot-capture-018-a-simple-example-pannellum-panne
 <iframewidth="600"height="400"allowfullscreen style="borderstyle:none;"src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://pannellum.org/images/alma.jpg"></iframe>
 ```
 
-
-
 **使用模块引入**
 
 ```javascript
@@ -43,8 +41,6 @@ pannellum.viewer('panorama',{
   "panorama":"https://pannellum.org/images/alma.jpg"
 });
 ```
-
-
 
 pannellum团队的[GitHub](https://github.com/mpetroff/pannellum)
 
