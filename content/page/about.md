@@ -1,10 +1,9 @@
 ---
-title: 关于
+title: 关于我们
 date: 2018-07-07T03:00:50-07:00
 thumbnail: /images/uploads/bael-big.jpg
-description: 关于
+description: 关于我们
 ---
-# Bael is a free blogging theme to use with Netlify CMS. It has a utilitarian, brutalist design that lends itself to written content and full width images.
+欢迎浏览本站，此站只是个人的记录，只供技术问题参考，有不足之处请谅解，初版比较low，后面有空再更新，再苦也要把它做完。
 
-Available on [Github](https://github.com/jake-101/bael-template)   
-MIT Open Source License
+有问题可以联系1655688657@qq.com

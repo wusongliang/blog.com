@@ -1,8 +1,8 @@
 <template>
   <v-card class="home mx-auto transparent py-6 px-sm-3" max-width="960" elevation="0">
     <v-row class="home-top">
-      <v-col cols="12" sm="6">
-        <p class="my-sm-4 my-md-6">{{ home.description }}</p>
+      <v-col align-self="center" cols="12" sm="6">
+        <nuxt-content :document="home" />
       </v-col>
 
       <v-col cols="12" sm="6">
