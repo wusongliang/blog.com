@@ -13,14 +13,15 @@ thumbnail: /images/uploads/fireshot-capture-018-a-simple-example-pannellum-panne
 <!DOCTYPE HTML>
 <html>
 <head>
-<metacharset="utf-8"><metaname="viewport"content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport"content="width=device-width, initial-scale=1.0">
 <title>A simple example</title>
 <link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
 <script type="text/javascript"src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
 <style>#panorama{width:600px;height:400px;}</style>
 </head>
 <body>
-<divid="panorama"></div>
+<div id="panorama"></div>
 <script>pannellum.viewer('panorama',{"type":"equirectangular","panorama":"https://pannellum.org/images/alma.jpg"});</script>
 </body>
 </html>
@@ -29,7 +30,7 @@ thumbnail: /images/uploads/fireshot-capture-018-a-simple-example-pannellum-panne
 第二种
 
 ```html
-<iframewidth="600"height="400"allowfullscreen style="borderstyle:none;"src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://pannellum.org/images/alma.jpg"></iframe>
+<iframe width="600"height="400"allowfullscreen style="borderstyle:none;"src="https://cdn.pannellum.org/2.5/pannellum.htm#panorama=https://pannellum.org/images/alma.jpg"></iframe>
 ```
 
 **使用模块引入**
