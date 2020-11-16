@@ -94,13 +94,18 @@ module.exports = {
   ** Build configuration
   */
 
+  server: {
+    port: 5000, // default: 3000
+    host: "localhost" // default: localhost,
+  },
+
   build: {
     extractCSS: false,
 
     postcss: {
       // disable postcss plugins in development
       plugins:
-        process.env.NODE_ENV != "development"
+        process.env.NODE_ENV === "development"
           ? {}
           : {
               "@fullhuman/postcss-purgecss": {

@@ -47,7 +47,7 @@
       </v-container>
     </v-main>
 
-    <v-footer :class="{ 'footer-right': drawer }">
+    <v-footer :class="{ 'footer-left': drawer }">
       <v-card
         flat
         tile
@@ -132,8 +132,8 @@ a.hide-text-decoration {
 .v-footer {
   transition: 0.2s;
   @media screen and (min-width: 1264px) {
-    &.footer-right {
-      margin-right: 256px;
+    &.footer-left {
+      margin-left: 256px;
     }
   }
 }

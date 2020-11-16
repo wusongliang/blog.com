@@ -20,24 +20,34 @@
       </v-col>
     </v-row>
     
-    <h2 class="mt-6 mb-2 subtitle-1">文章分类</h2>
+    <h2 class="mt-8 mb-2 title">文章分类</h2>
+
     <v-row class="home-category">
-      <template v-for="category in categories">
-        <v-col 
-          v-if="category.thumbnail" 
-          :key="category.title" 
-          cols="12" 
-          sm="6"
+      <v-col v-for="category in categories" :key="category.title">
+        <v-card class="px-3 py-1">
+          <nuxt-link class="title" :to="category.path">
+            {{ category.title }}
+          </nuxt-link>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <h2 class="mt-8 mb-2 title">最近更新</h2>
+
+    <v-row class="home-blogs">
+      <v-col align-self="center" cols="12" sm="6">
+        <v-card
+          v-for="blog in posts"
+          :key="blog.slug"
+          class="d-flex flex-no-wrap mb-4"
+          outlined
+          @click="$router.push({ path: blog.path })"
         >
           <v-img
+            v-if="blog.thumbnail"
             class="d-inline-block"
-            :src="category.thumbnail"
-            :alt="category.title"
-            width="100%"
-            aspect-ratio="1.66"
-            gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,1)"
-            v-ripple 
-            @click="$router.push({path: category.path})"
+            :src="blog.thumbnail"
+            :alt="blog.title"
           >
             <template v-slot:placeholder>
               <v-row
@@ -48,42 +58,22 @@
                 <v-progress-circular indeterminate color="grey lighten-2"></v-progress-circular>
               </v-row>
             </template>
-
-            <v-row align="end" class="lightbox white--text pa-3">
-              <v-col>
-                <nuxt-link class="title white--text" :to="category.path">
-                  {{ category.title }}
-                </nuxt-link>
-                <div class="body-1 mt-1">{{ category.description }}</div>
-              </v-col>
-            </v-row>
           </v-img>
-        </v-col>
 
-        <v-col 
-          v-else 
-          :key="category.title" 
-          cols="12" 
-          sm="6" 
-        >
-          <v-img 
-            src="/images/placeholder.jpg" 
-            aspect-ratio="1.66"
-            gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,1)"
-            v-ripple 
-            @click="$router.push({path: category.path})"
-          >
-            <v-row align="end" class="lightbox white--text pa-2">
-              <v-col>
-                <nuxt-link class="title white--text" :to="category.path">
-                  {{ category.title }}
-                </nuxt-link>
-                <div class="body-1 mt-1">{{ category.description }}</div>
-              </v-col>
-            </v-row>
-          </v-img>
-        </v-col>
-      </template>
+          <v-img v-else src="/images/placeholder.jpg"></v-img>
+
+          <div class="d-flex flex-column justify-space-between px-3 py-4">
+            <nuxt-link 
+              :to="blog.path" 
+              class="d-block font-weight-regular"
+            >
+              {{ blog.title }}
+            </nuxt-link>
+
+            <span class="grey--text text--darken-1 body-2">{{ $formatDate(blog.date) }}</span>
+          </div>
+        </v-card>
+      </v-col>
     </v-row>
   </v-card>
 </template>
@@ -93,10 +83,16 @@ export default {
   async asyncData({ $content, params, store, error }) {
     const home = await $content("page/home").fetch();
     const categories = await $content("category").fetch();
+    const posts = await $content("blog")
+      .sortBy("createdAt", "desc")
+      .only(["title", "path", "date", "thumbnail"])
+      .limit(6)
+      .fetch();
 
     return {
       home,
-      categories
+      categories,
+      posts
     }
   }
 }
@@ -113,6 +109,21 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
+  }
+}
+
+.home-blogs {
+  a {
+    font-size: 1.025rem;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  .v-image {
+    max-width: 150px;
+    height: 120px;
+    border-radius: 0 !important;
   }
 }
 </style>
