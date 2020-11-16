@@ -10,10 +10,13 @@ module.exports = {
   ** Headers of the page
   */
   transition: { mode: "in-out" },
+
   env: {
     API_URL: process.env.API_URL,
-    BAEL_VERSION: pkginfo.version
+    BAEL_VERSION: pkginfo.version,
+    PRIMARY_COLOR: process.env.PRIMARY_COLOR
   },
+
   head: {
     title: siteInfo.sitename,
     meta: [
@@ -27,6 +30,7 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap' }
     ]
   },
+
   css: ["@/assets/main.css", "@/assets/content.scss"],
   // icon: {
   //   iconSrc: `${siteInfo.siteicon}`
@@ -36,21 +40,27 @@ module.exports = {
   */
 
   loading: { color: process.env.PRIMARY_COLOR || "#26a69a" },
+
   buildModules: ['@nuxtjs/vuetify'],
+
   modules: ['@nuxt/content', '@nuxtjs/pwa', '@nuxtjs/axios', 'nuxt-polyfill'],
+
   vuetify: {
     defaultAssets: false,
     optionsPath: "./vuetify.options.js"
   },
+
   content: {
     fullTextSearchFields: ['title', 'description', 'category']
   },
+
   manifest: {
     name: siteInfo.sitename,
     short_name: siteInfo.sitename,
     description: siteInfo.sitedescription,
     lang: 'en'
   },
+
   workbox: {
     runtimeCaching: [
       {
@@ -66,6 +76,7 @@ module.exports = {
       }
     ]
   },
+
   polyfill: {
     features: [
       {
@@ -85,18 +96,73 @@ module.exports = {
 
   build: {
     extractCSS: false,
+
+    postcss: {
+      // disable postcss plugins in development
+      plugins:
+        process.env.NODE_ENV != "development"
+          ? {}
+          : {
+              "@fullhuman/postcss-purgecss": {
+                content: [
+                  "components/**/*.vue",
+                  "layouts/**/*.vue",
+                  "pages/**/*.vue",
+                  "plugins/**/*.js",
+                  "node_modules/vuetify/src/**/*.ts"
+                ],
+                styleExtensions: [".css"],
+                safelist: {
+                  standard: [
+                    "body",
+                    "html",
+                    "nuxt-progress",
+                    /col-*/,
+                    /order-*/,
+                    /.*-transition/,
+                    "v-progress-circular__overlay"
+                  ],
+                  deep: [
+                    /page-enter/,
+                    /page-leave/,
+                    /tab-reversetransition/,
+                    /post-content/,
+                    /nuxt-content/,
+                    /line-numbers/,
+                    /language-html/,
+                    /token/
+                  ]
+                }
+              },
+              "css-byebye": {
+                rulesToRemove: [
+                  /.v-application code/,
+                  /.*\.v-application--is-rtl.*/,
+                  /.*\.(red|pink|purple|deep-purple|indigo|blue|light-blue|cyan|teal|green|light-green|lime|yellow|amber|orange|deep-orange|brown|blue-grey).*/
+                ]
+              }
+            }
+    },
+
     html: {
       minify: {
        minifyCSS: false,
        minifyJS: false
       }
     },
+
     plugins: [
       new webpack.ProvidePlugin({
         _get: 'lodash/get',
       })
     ],
-  },
+
+    extend(config, { isDev, isClient }) {
+      if (isClient) {
+        config.optimization.splitChunks.maxSize = 500000;
+      }
+    }
+  }
 }
 
 

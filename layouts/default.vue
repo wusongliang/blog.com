@@ -3,7 +3,7 @@
     <v-navigation-drawer
       v-model="drawer"
       fixed
-      right
+      left
       app
     >
       <v-list>
@@ -26,6 +26,7 @@
     </v-navigation-drawer>
 
     <v-app-bar fixed app>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
       <v-toolbar-title>
         <nuxt-link class="hide-text-decoration" to="/">
@@ -38,8 +39,6 @@
       <v-btn icon @click.stop="toggle()">
         <v-icon>{{ $vuetify.icons.values.mdiBrightness4 }}</v-icon>
       </v-btn>
-
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
     </v-app-bar>
 
     <v-main>

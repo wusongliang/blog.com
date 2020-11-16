@@ -11,16 +11,18 @@ import {
   mdiFormatListBulletedType
 } from "@mdi/js";
 
+const PRIMARY_COLOR = process.env.PRIMARY_COLOR || "#26a69a";
+
 export default function() {
   return {
     theme: {
       dark: process.env.DARK,
       themes: {
         light: {
-          primary: process.env.PRIMARY_COLOR || "#26a69a"
+          primary: PRIMARY_COLOR
         },
         dark: {
-          primary: process.env.PRIMARY_COLOR || "#26a69a",
+          primary: PRIMARY_COLOR,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
