@@ -63,7 +63,7 @@ export default {
 
     const blogsCount = await $content("blog")
       .sortBy("createdAt", "desc")
-      .where({ category: category.title })
+      .where({ category: params.slug })
       .fetch();
 
     const limit = Number(content.limit);
@@ -71,8 +71,8 @@ export default {
     const posts = await $content("blog")
       .sortBy("createdAt", "desc")
       .only(["title", "path", "date", "thumbnail"])
-      .where({ category: category.title })
-      .skip(1)
+      .where({ category: params.slug })
+      .skip(0)
       .limit(limit)
       .fetch();
 
@@ -89,13 +89,13 @@ export default {
     async page() {
       const blogsCount = await this.$content("blog")
       .sortBy("createdAt", "desc")
-      .where({ category: this.category.title })
+      .where({ category: this.$route.params.slug })
       .fetch();
 
      this.posts = await this.$content("blog")
       .sortBy("createdAt", "desc")
       .only(["title", "path", "date", "thumbnail"])
-      .where({ category: this.category.title })
+      .where({ category: this.$route.params.slug })
       .skip((this.page - 1) * this.limit)
       .limit(this.limit)
       .fetch();

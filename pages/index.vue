@@ -35,10 +35,8 @@
     <h2 class="mt-8 mb-2 title">最近更新</h2>
 
     <v-row class="home-blogs">
-      <v-col align-self="center" cols="12" sm="6">
+      <v-col v-for="blog in posts" :key="blog.slug" align-self="center" cols="12" sm="6">
         <v-card
-          v-for="blog in posts"
-          :key="blog.slug"
           class="d-flex flex-no-wrap mb-4"
           outlined
           @click="$router.push({ path: blog.path })"
