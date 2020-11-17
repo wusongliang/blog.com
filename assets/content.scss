@@ -161,4 +161,29 @@
     color: #222;
     margin-bottom: 16px;
   }
+
+  table {
+    min-width: 60%;
+    border-collapse: collapse;
+  }
+
+  table td,
+  table th {
+    min-width: 40px;
+    padding: 4px 12px;
+    border: 1px solid #dfe4eb;
+  }
+  
+  table tr:nth-child(2n) {
+    background-color: rgba(150, 150, 150, 0.2);
+  }
+
+  table thead,
+  table th {
+    font-weight: 700;
+  }
+
+  table thead {
+    border-bottom: 1px solid #ddd;
+  }
 }
