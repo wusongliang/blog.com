@@ -2,7 +2,6 @@
   <v-app dark>
     <v-navigation-drawer
       v-model="drawer"
-      fixed
       left
       app
     >
