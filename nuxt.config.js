@@ -5,7 +5,6 @@ const webpack = require('webpack')
 module.exports = {
   target: 'static',
   components: true,
-  mode: "universal",
   /*
   ** Headers of the page
   */
@@ -105,7 +104,7 @@ module.exports = {
     postcss: {
       // disable postcss plugins in development
       plugins:
-        process.env.NODE_ENV === "development"
+        process.env.NODE_ENV !== "development"
           ? {}
           : {
               "@fullhuman/postcss-purgecss": {

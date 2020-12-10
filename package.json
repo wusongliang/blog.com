@@ -27,11 +27,9 @@
     "vue-smooth-reflow": "^0.1.12"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^3.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "@sendgrid/client": "^6.3.0",
     "babel-eslint": "^8.2.6",
-    "css-byebye": "^2.0.2",
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",

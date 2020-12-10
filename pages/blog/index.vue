@@ -1,5 +1,5 @@
 <template>
-  <v-card class="blog mx-auto transparent py-6" max-width="760" elevation="0">
+  <v-card class="blog mx-auto transparent py-6" max-width="720" elevation="0">
     <v-text-field
       v-model.trim="q"
       id="search"
@@ -19,29 +19,10 @@
       outlined
       @click="$router.push({ path: blog.path })"
     >
-      <v-img
-        v-if="blog.thumbnail"
-        class="d-inline-block"
-        :src="blog.thumbnail"
-        :alt="blog.title"
-      >
-        <template v-slot:placeholder>
-          <v-row
-            class="fill-height ma-0"
-            align="center"
-            justify="center"
-          >
-            <v-progress-circular indeterminate color="grey lighten-2"></v-progress-circular>
-          </v-row>
-        </template>
-      </v-img>
-
-      <v-img v-else src="/images/placeholder.jpg"></v-img>
-
       <div class="d-flex flex-column justify-space-between px-3 py-4">
         <nuxt-link 
           :to="blog.path" 
-          class="d-block font-weight-regular"
+          class="d-block font-weight-regular mb-2"
         >
           {{ blog.title }}
         </nuxt-link>
