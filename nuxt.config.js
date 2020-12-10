@@ -104,7 +104,7 @@ module.exports = {
     postcss: {
       // disable postcss plugins in development
       plugins:
-        process.env.NODE_ENV !== "development"
+        process.env.NODE_ENV === "development"
           ? {}
           : {
               "@fullhuman/postcss-purgecss": {
