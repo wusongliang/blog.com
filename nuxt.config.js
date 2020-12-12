@@ -45,6 +45,7 @@ module.exports = {
   modules: ['@nuxt/content', '@nuxtjs/pwa', '@nuxtjs/axios', 'nuxt-polyfill'],
 
   vuetify: {
+    treeShake: true,
     defaultAssets: false,
     optionsPath: "./vuetify.options.js"
   },
@@ -92,11 +93,6 @@ module.exports = {
   /*
   ** Build configuration
   */
-
-  server: {
-    port: 5000, // default: 3000
-    host: "localhost" // default: localhost,
-  },
 
   build: {
     extractCSS: false,
@@ -146,13 +142,6 @@ module.exports = {
                 ]
               }
             }
-    },
-
-    html: {
-      minify: {
-       minifyCSS: false,
-       minifyJS: false
-      }
     },
 
     plugins: [

@@ -16,7 +16,7 @@ const PRIMARY_COLOR = process.env.PRIMARY_COLOR || "#26a69a";
 export default function() {
   return {
     theme: {
-      dark: process.env.DARK,
+      dark: process.env.DARK || true,
       themes: {
         light: {
           primary: PRIMARY_COLOR
