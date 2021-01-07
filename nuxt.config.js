@@ -136,7 +136,6 @@ module.exports = {
               },
               "css-byebye": {
                 rulesToRemove: [
-                  /.v-application code/,
                   /.*\.v-application--is-rtl.*/,
                   /.*\.(red|pink|purple|deep-purple|indigo|blue|light-blue|cyan|teal|green|light-green|lime|yellow|amber|orange|deep-orange|brown|blue-grey).*/
                 ]

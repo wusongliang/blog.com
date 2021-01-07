@@ -8,3 +8,7 @@
 .hide-text-decoration {
   text-decoration: none;
 }
+
+.v-application code {
+  background-color: transparent !important;
+}

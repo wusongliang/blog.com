@@ -24,7 +24,7 @@
 
     <v-row class="home-category">
       <v-col v-for="category in categories" :key="category.title">
-        <v-card class="px-3 py-1">
+        <v-card class="px-4 py-1">
           <nuxt-link class="title" :to="category.path">
             {{ category.title }}
           </nuxt-link>
@@ -37,11 +37,11 @@
     <v-row class="home-blogs">
       <v-col v-for="blog in posts" :key="blog.slug" align-self="center" cols="12" sm="6">
         <v-card
-          class="d-flex flex-no-wrap mb-4"
+          class="mb-2"
           outlined
           @click="$router.push({ path: blog.path })"
         >
-          <div class="d-flex flex-column justify-space-between px-3 py-4">
+          <div class="px-3 py-4">
             <nuxt-link 
               :to="blog.path" 
               class="d-block font-weight-regular mb-2"
@@ -94,7 +94,10 @@ export default {
 .home-blogs {
   a {
     font-size: 1.025rem;
+    overflow: hidden;
     text-decoration: none;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     &:hover {
       text-decoration: underline;
     }
