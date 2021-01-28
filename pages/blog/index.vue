@@ -45,43 +45,54 @@
 
 <script>
 export default {
-  watchQuery: ['page', 'q'],
-
-  async asyncData ({ $content, route }) {
-    const q = route.query.q;
-    const page = Number(route.query.page) || 1;
-
+  async asyncData ({ $content }) {
     const content = await $content("page/blog").fetch();
-
     let query = $content("blog", { deep: true })
       .sortBy("date", "desc")
       .only(["title", "path", "date", "thumbnail"]);
 
-    if (q) query = query.search('title', q);
-
-    const limit = Number(content.limit);
+    const limit = Number(content.limit) || 10;
     const blogsCount = await query.fetch();
-    const blogs = await query.skip((page - 1) * limit).limit(limit).fetch();
+    const blogs = await query.skip(0).limit(limit).fetch();
+    const length = Math.ceil(blogsCount.length / limit);
 
     return {
-      q,
-      limit,
+      q: null,
       blogs,
+      page: 1,
+      length,
       content,
-      page,
-      length: Math.ceil(blogsCount.length / limit)
+      limit,
+      notWatchPage: false
     }
   },
 
   watch: {
+    $route() {
+      if (!Object.keys(this.$route.query).length) {
+        this.notWatchPage = true;
+        this.page = 1;
+      }
+      this.getBlogsByQuery();
+    },
     page(val) {
-      this.getBlogs(val);
+      if (!this.notWatchPage) {
+        this.setRouter(val);
+      } else {
+        this.notWatchPage = false;
+      }
+    }
+  },
+
+  created() {
+    if (Object.keys(this.$route.query).length) {
+      this.getBlogsByQuery();
     }
   },
 
   methods: {
     search() {
-      this.getBlogs(1);
+      this.setRouter(1);
     },
     async getBlogs(page) {
       let query = this.$content("blog", { deep: true })
@@ -93,13 +104,17 @@ export default {
       const blogsCount = await query.fetch();
       this.blogs = await query.skip((page - 1) * this.limit).limit(this.limit).fetch();
       this.length = Math.ceil(blogsCount.length / this.limit);
-      this.setRouter(page);
     },
     setRouter(page) {
       const query = {};
       if (this.q) query.q = this.q;
       if (page) query.page = page;
       this.$router.push({ name: 'blog', query })
+    },
+    getBlogsByQuery() {
+      this.q = this.$route.query.q;
+      this.page = Number(this.$route.query.page) || this.page;
+      this.getBlogs(this.page);
     }
   },
 

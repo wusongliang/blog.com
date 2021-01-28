@@ -33,10 +33,7 @@
 
 <script>
 export default {
-  watchQuery: ['page'],
-
   async asyncData({ $content, params, route, error }) {
-    const page = Number(route.query.page) || 1;
     const content = await $content("page/blog").fetch();
 
     const category = await $content("category", params.slug)
@@ -50,13 +47,13 @@ export default {
       .where({ category: params.slug })
       .fetch();
 
-    const limit = Number(content.limit);
+    const limit = 1 || Number(content.limit);
 
     const posts = await $content("blog")
       .sortBy("createdAt", "desc")
       .only(["title", "path", "date", "thumbnail"])
       .where({ category: params.slug })
-      .skip((page - 1) * limit)
+      .skip(0)
       .limit(limit)
       .fetch();
 
@@ -64,28 +61,53 @@ export default {
       category,
       posts,
       limit,
-      page,
-      length: Math.ceil(blogsCount.length / limit)
+      page: 1,
+      length: Math.ceil(blogsCount.length / limit),
+      notWatchPage: false
     };
   },
 
+  created() {
+    this.getBlogs();
+  },
+
   watch: {
-    async page(val) {
-      const blogsCount = await this.$content("blog")
-      .sortBy("createdAt", "desc")
-      .where({ category: this.$route.params.slug })
-      .fetch();
+    $route() {
+      if (!Object.keys(this.$route.query).length) {
+        this.notWatchPage = true;
+        this.page = 1;
+      }
+      this.getBlogs();
+    },
+    page(val) {
+      if (!this.notWatchPage) {
+        this.$router.push({ query: { page: val } });
+      } else {
+        this.notWatchPage = false;
+      }
+    }
+  },
 
-     this.posts = await this.$content("blog")
-      .sortBy("createdAt", "desc")
-      .only(["title", "path", "date", "thumbnail"])
-      .where({ category: this.$route.params.slug })
-      .skip((this.page - 1) * this.limit)
-      .limit(this.limit)
-      .fetch();
+  methods: {
+    async getBlogs() {
+      if (this.$route.query.page) {
+        this.page = Number(this.$route.query.page) || this.page;
+        
+        const blogsCount = await this.$content("blog")
+        .sortBy("createdAt", "desc")
+        .where({ category: this.$route.params.slug })
+        .fetch();
 
-      this.length = Math.ceil(blogsCount.length / this.limit);
-      this.$router.push({ query: { page: val } });
+        this.posts = await this.$content("blog")
+          .sortBy("createdAt", "desc")
+          .only(["title", "path", "date", "thumbnail"])
+          .where({ category: this.$route.params.slug })
+          .skip((this.page - 1) * this.limit)
+          .limit(this.limit)
+          .fetch();
+
+        this.length = Math.ceil(blogsCount.length / this.limit);
+      }
     }
   },
 
