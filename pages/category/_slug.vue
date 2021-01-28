@@ -33,7 +33,10 @@
 
 <script>
 export default {
-  async asyncData({ $content, params, store, error }) {
+  watchQuery: ['page'],
+
+  async asyncData({ $content, params, route, error }) {
+    const page = Number(route.query.page) || 1;
     const content = await $content("page/blog").fetch();
 
     const category = await $content("category", params.slug)
@@ -53,7 +56,7 @@ export default {
       .sortBy("createdAt", "desc")
       .only(["title", "path", "date", "thumbnail"])
       .where({ category: params.slug })
-      .skip(0)
+      .skip((page - 1) * limit)
       .limit(limit)
       .fetch();
 
@@ -61,13 +64,13 @@ export default {
       category,
       posts,
       limit,
-      page: 1,
+      page,
       length: Math.ceil(blogsCount.length / limit)
     };
   },
 
   watch: {
-    async page() {
+    async page(val) {
       const blogsCount = await this.$content("blog")
       .sortBy("createdAt", "desc")
       .where({ category: this.$route.params.slug })
@@ -82,6 +85,7 @@ export default {
       .fetch();
 
       this.length = Math.ceil(blogsCount.length / this.limit);
+      this.$router.push({ query: { page: val } });
     }
   },
 

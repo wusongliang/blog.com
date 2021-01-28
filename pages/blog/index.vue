@@ -45,10 +45,11 @@
 
 <script>
 export default {
-  watchQuery: true,
+  watchQuery: ['page', 'q'],
 
   async asyncData ({ $content, route }) {
     const q = route.query.q;
+    const page = Number(route.query.page) || 1;
 
     const content = await $content("page/blog").fetch();
 
@@ -56,21 +57,18 @@ export default {
       .sortBy("date", "desc")
       .only(["title", "path", "date", "thumbnail"]);
 
-    if (q) {
-      //query = query.search(q);
-      query = query.search('title', q);
-    }
+    if (q) query = query.search('title', q);
 
     const limit = Number(content.limit);
     const blogsCount = await query.fetch();
-    const blogs = await query.skip(0).limit(limit).fetch();
+    const blogs = await query.skip((page - 1) * limit).limit(limit).fetch();
 
     return {
       q,
       limit,
       blogs,
       content,
-      page: 1,
+      page,
       length: Math.ceil(blogsCount.length / limit)
     }
   },
@@ -95,6 +93,13 @@ export default {
       const blogsCount = await query.fetch();
       this.blogs = await query.skip((page - 1) * this.limit).limit(this.limit).fetch();
       this.length = Math.ceil(blogsCount.length / this.limit);
+      this.setRouter(page);
+    },
+    setRouter(page) {
+      const query = {};
+      if (this.q) query.q = this.q;
+      if (page) query.page = page;
+      this.$router.push({ name: 'blog', query })
     }
   },
 
