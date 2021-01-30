@@ -47,7 +47,7 @@ export default {
       .where({ category: params.slug })
       .fetch();
 
-    const limit = 1 || Number(content.limit);
+    const limit = Number(content.limit) || 10;
 
     const posts = await $content("blog")
       .sortBy("createdAt", "desc")
