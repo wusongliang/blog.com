@@ -44,7 +44,7 @@ export default {
 
     const blogsCount = await $content("blog")
       .sortBy("createdAt", "desc")
-      .where({ category: params.slug })
+      .where({ category: category.title })
       .fetch();
 
     const limit = Number(content.limit) || 10;
@@ -52,7 +52,7 @@ export default {
     const posts = await $content("blog")
       .sortBy("createdAt", "desc")
       .only(["title", "path", "date", "thumbnail"])
-      .where({ category: params.slug })
+      .where({ category: category.title })
       .skip(0)
       .limit(limit)
       .fetch();

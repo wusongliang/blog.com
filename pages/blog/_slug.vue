@@ -2,19 +2,17 @@
   <v-card class="mx-auto transparent py-6 px-sm-3" elevation="0" max-width="860">
     <h1 class="headline">{{post.title}}</h1>
 
-    <div class="my-4 body-2">
-      <ul class="d-flex align-center pl-2">
-        <li v-if="post.category" class="d-inline-block mr-3">
-          <div class="tag">
-            <nuxt-link
-              :to="`/category/${post.category.toLowerCase()}`"
-              class="grey--text"
-            >{{post.category}}</nuxt-link>
-          </div>
-        </li>
-        <li class="d-inline-block">{{ $formatDate(post.date) }}</li>
-      </ul>
-    </div>
+    <ul class="d-flex align-center pl-2 mt-4 mb-6 body-2">
+      <li class="d-inline-block mr-3">{{ $formatDate(post.date) }}</li>
+      <li v-if="post.category" class="d-inline-block">
+        <div class="tag">
+          <nuxt-link
+            :to="category.path"
+            class="grey--text"
+          >{{post.category}}</nuxt-link>
+        </div>
+      </li>
+    </ul>
 
     <div class="post-content">
       <nuxt-content :document="post" />
@@ -33,7 +31,15 @@ export default {
         error({ statusCode: 404, message: "Page not found" });
       });
 
+    const [category] = await $content("category")
+      .where({ title: post.category })
+      .fetch()
+      .catch((err) => {
+        console.error(err)
+      });
+
     return {
+      category,
       post,
     };
   },

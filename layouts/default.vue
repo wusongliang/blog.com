@@ -155,7 +155,7 @@ export default {
         this.blogs = await this.$content("blog", { deep: true })
           .sortBy("date", "desc")
           .only(["title", "path"])
-          .search("title", val)
+          .search(val)
           .limit(5)
           .fetch();
 
@@ -164,9 +164,17 @@ export default {
     },
   },
 
+  mounted() {
+    const vuetify_theme_dark = localStorage.getItem("vuetify_theme_dark");
+    if (vuetify_theme_dark) {
+      this.$vuetify.theme.dark = JSON.parse(vuetify_theme_dark)
+    }
+  },
+
   methods: {
     toggle() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      localStorage.setItem("vuetify_theme_dark", JSON.stringify(this.$vuetify.theme.dark))
     },
   },
 };
